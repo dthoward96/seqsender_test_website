@@ -13,11 +13,11 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Public Database Submission Pipeline">
 <meta property="og:description" content="seqsender is a Python program that is designed to automate the process of generating 
-       necessary submission files (e.g. submission.xml, submission.zip, etc.) 
-       and then bulk uploading them via FTP to NCBI archives such as Genbank, BioSample, and SRA. 
-       Additionally, the program can batch uploading submissions of meta- and sequence-data to GISAID 
-       using their Command Line Interface Tools (e.g., EpiFlu and EpiCoV CLI). 
-       Currently, the pipeline is capable of uploading Influenza A Virus and SARS-COV-2 data.">
+  necessary submission files (e.g. submission.xml, submission.zip, etc.) 
+  and then bulk uploading them via FTP to NCBI archives such as Genbank, BioSample, and SRA. 
+  Additionally, the program can batch uploading submissions of meta- and sequence-data to GISAID 
+  using their Command Line Interface Tools (e.g., EpiFlu and EpiCoV CLI). 
+  Currently, the pipeline is capable of uploading Influenza A Virus and SARS-COV-2 data.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">seqsender</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -116,6 +116,9 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
+  <a href="news/index.html">Changelog</a>
+</li>
+<li>
   <a href="https://github.com/CDCgov/seqsender/">
     <span class="fab fa-github fa-lg"></span>
      
@@ -135,9 +138,8 @@
   <div class="contents col-md-9">
 
 <p style="font-size: 16px;">
+<em>Public Database Submission Pipeline</em>
 </p>
-<p><em>Public Database Submission Pipeline</em></p>
-
 <p><strong>Beta Version</strong>: 1.1.0. This pipeline is currently in Beta testing, and issues could appear during submission. Please use it at your own risk. Feedback and suggestions are welcome!</p>
 <p><strong>General Disclaimer</strong>: This repository was created for use by CDC programs to collaborate on public health related projects in support of the <a href="https://www.cdc.gov/about/organization/mission.htm" class="external-link">CDC mission</a>. GitHub is not hosted by the CDC, but is a third party website used by CDC and its partners to share information and collaborate on software. CDC use of GitHub does not imply an endorsement of any one particular service, product, or enterprise.</p>
 <div class="section level2">
@@ -159,7 +161,7 @@
 <li><p>Refer to this page for information regarding requirements for GenBank submissions via FTP only. This page applies only for COVID and Influenza <a href="https://submit.ncbi.nlm.nih.gov/sarscov2/genbank/#step5" class="external-link">NCBI GenBank FTP Submissions</a> For further questions contact <a href="mailto:gb-admin@ncbi.nlm.nih.gov">gb-admin@ncbi.nlm.nih.gov</a> to discuss requirements for submissions.</p></li>
 <li><p>Coordinate a NCBI namespace name (<strong>spuid_namespace</strong>) that will be used with Submitter Provided Unique Identifiers (<strong>spuid</strong>) in the submission. The liaison of <strong>spuid_namespace</strong> and <strong>spuid</strong> is used to report back assigned accessions as well as for cross-linking objects within submission. The values of <strong>spuid_namespace</strong> are up to the submitter to decide but they must be unique and well-coordinated prior to make a submission. For more information about these two fields, see <a href="https://cdcgov.github.io/seqsender/articles/biosample_submission.html#metadata" class="external-link">BioSample</a> / <a href="https://cdcgov.github.io/seqsender/articles/sra_submission.html#metadata" class="external-link">SRA</a> / <a href="https://cdcgov.github.io/seqsender/articles/genbank_submission.html#metadata" class="external-link">GENBANK</a> metadata requirements.</p></li>
 </ol>
-<!-- end list --><ul>
+<ul>
 <li><strong>GISAID Submissions</strong></li>
 </ul>
 <p><code>seqsender</code> makes use of GISAID’s Command Line Interface tools to bulk uploading meta- and sequence-data to GISAID databases. Presently, the pipeline only allows upload to EpiFlu (<strong>Influenza A Virus</strong>) and EpiCoV (<strong>SARS-COV-2</strong>) databases. Before uploading, submitter needs to</p>
@@ -174,7 +176,7 @@
 <div class="section level2">
 <h2 id="requirement-files">Requirement Files<a class="anchor" aria-label="anchor" href="#requirement-files"></a>
 </h2>
-<p>Before submitter can perform a submission using <code>seqsender</code>, make sure the requirement files (such as <em>config.yaml</em>, <em>metadata.csv</em>, <em>sequence.fasta</em>, <em>raw reads</em>, etc.) are already prepared and stored in a submission directory of choice.</p>
+<p>Before submitters can perform a batch submission using <code>seqsender</code>, they must make sure the requirement files (such as <em>config.yaml</em>, <em>metadata.csv</em>, <em>sequence.fasta</em>, <em>raw reads</em>, etc.) are already prepared and stored in a submission directory of choice.</p>
 <ol style="list-style-type: decimal">
 <li>To prep for FLU submissions, select one of the databases below to get started:</li>
 </ol>
@@ -232,7 +234,6 @@
 <h2 id="additional-standard-notices">Additional Standard Notices<a class="anchor" aria-label="anchor" href="#additional-standard-notices"></a>
 </h2>
 <p>Please refer to <a href="https://github.com/CDCgov/template" class="external-link">CDC’s Template Repository</a> for more information about <a href="https://github.com/CDCgov/template/blob/master/CONTRIBUTING.md" class="external-link">contributing to this repository</a>, <a href="https://github.com/CDCgov/template/blob/master/DISCLAIMER.md" class="external-link">public domain notices and disclaimers</a>, and <a href="https://github.com/CDCgov/template/blob/master/code-of-conduct.md" class="external-link">code of conduct</a>.</p>
-<p>test</p>
 </div>
 
   </div>
@@ -249,8 +250,7 @@
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a> + file <a href="LICENSE-text.html">LICENSE</a>
+<li>Apache License (== 2.0) + file <a href="LICENSE-text.html">LICENSE</a>
 </li>
 </ul>
 </div>
@@ -274,7 +274,7 @@
 <li>Vikram Setlur <br><small class="roles"> Author </small>  </li>
 <li>Thomas Stark <br><small class="roles"> Author </small>  </li>
 <li>Brian Lee <br><small class="roles"> Author </small>  </li>
-<li>Ben Rambo-Martin <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-8591-3954" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Benjamin Rambo-Martin <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-8591-3954" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 
@@ -286,7 +286,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Dakota Howard, Reina Chau, Peter Cook, Kristine Lacek, Amanda Sullivan, Vikram Setlur, Thomas Stark, Brian Lee, Ben Rambo-Martin.</p>
+<p>Developed by Dakota Howard, Reina Chau, Peter Cook, Kristine Lacek, Amanda Sullivan, Vikram Setlur, Thomas Stark, Brian Lee, Benjamin Rambo-Martin.</p>
 </div>
 
 <div class="pkgdown">

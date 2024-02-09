@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">seqsender</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -111,6 +111,9 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
+  <a href="../news/index.html">Changelog</a>
+</li>
+<li>
   <a href="https://github.com/CDCgov/seqsender/">
     <span class="fab fa-github fa-lg"></span>
      
@@ -142,10 +145,10 @@
 <style>
   
   table {
-    border: 1px solid gray;
+    border: none;
   }
   
-  td, th {
+  td, th, tr {
     border: 1px solid gray;
     padding: 5px 5px 5px 5px;
   }
@@ -161,12 +164,17 @@ their protein translations. It is produced and maintained by the
 part of the <strong>National Institutes of Health</strong> in the United
 States) as part of the <strong>International Nucleotide Sequence
 Database Collaboration (INSDC)</strong>.</p>
-<p>Before one can batch uploading meta- and sequence-data to
+<p>Before submitters can batch uploading meta- and sequence-data to
 <strong>GenBank</strong> database using <code>seqsender</code>, they
 must ensure the requirement files (such as <code>config.yaml</code>,
 <code>metadata.csv</code>, <code>sequence.fasta</code>,
-<code>raw reads</code>, etc.) are already prepared and stored in a
-submission directory of choice.</p>
+<code>raw reads</code>, etc.) are already prepared ahead of time and
+stored them in a submission folder of choice (e.g.,
+<code>submission_name</code>) within a parent submission directory
+(e.g., <code>submission_dir</code>). That way <code>seqsender</code>
+will be able to scoop up the necessary files in that folder, generate
+submission files, and then batch uploading them to the submitting
+database of choices.</p>
 </div>
 <div class="section level2">
 <h2 id="requirement-files">Requirement files<a class="anchor" aria-label="anchor" href="#requirement-files"></a>
@@ -182,17 +190,18 @@ format</li>
 <a href="#metadata-file">Metadata file</a> in a <code>csv</code>
 format</li>
 </ul>
-</div>
-<div class="section level2">
-<h2 id="config-file">Config file<a class="anchor" aria-label="anchor" href="#config-file"></a>
-</h2>
+<p>A quick look of where to store all of the requirement files</p>
+<p><img src="images/submission_dir.png"></p>
+<div class="section level3">
+<h3 id="config-file">Config file<a class="anchor" aria-label="anchor" href="#config-file"></a>
+</h3>
 <p>Config file is a yaml file that provides a brief description about
 the submission and contains user credentials that allow
 <code>seqsender</code> to authenticate the database prior to upload a
 submission.</p>
 <p><img src="images/config_file.png"></p>
 <div style="padding: 10px; border: 1px solid blue !important;">
-<p><i class="fas fa-triangle-exclamation" role="presentation" aria-label="triangle-exclamation icon"></i>`
+<p><i class="fas fa-triangle-exclamation" role="presentation" aria-label="triangle-exclamation icon"></i>
 <strong>NOTE:</strong> <br></p>
 <ul>
 <li>To submit to NCBI only, one can remove the <strong>GISAID Submission
@@ -203,11 +212,11 @@ section. <br>
 <li>
 <strong>Submission_Position</strong> determines the order of
 databases in which we will submit to first. For instance, if GISAID is
-set as <code>Primary</code>, <strong><em>seqsender</em></strong> will
-submit to GISAID first, then after all samples are assigned with a
-GISAID accession number, <strong><em>seqsender</em></strong> will
-proceed to submit to NCBI. This order of submission ensures samples are
-linked correctly between the two databases. <br>
+set as <code>1</code>, <strong><em>seqsender</em></strong> will submit
+to GISAID first, then after all samples are assigned with a GISAID
+accession number, <strong><em>seqsender</em></strong> will proceed to
+submit to NCBI. This order of submission ensures samples are linked
+correctly between the two databases. <br>
 </li>
 <li>
 <strong>Username</strong> and <strong>Password</strong> under the
@@ -218,15 +227,18 @@ for more details.</li>
 </ul>
 </div>
 </div>
-<div class="section level2">
-<h2 id="fasta-file">Fasta file<a class="anchor" aria-label="anchor" href="#fasta-file"></a>
-</h2>
+<div class="section level3">
+<h3 id="fasta-file">Fasta file<a class="anchor" aria-label="anchor" href="#fasta-file"></a>
+</h3>
 <p>Fasta file contains nucleotide sequences for all samples. See <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/" class="external-link">Genbank Fasta
 Format</a> for more details.</p>
 </div>
-<div class="section level2">
-<h2 id="metadata-file">Metadata file<a class="anchor" aria-label="anchor" href="#metadata-file"></a>
-</h2>
+<div class="section level3">
+<h3 id="metadata-file">Metadata file<a class="anchor" aria-label="anchor" href="#metadata-file"></a>
+</h3>
+<p>The metadata worksheet is a comma-delimited (csv) file that contains
+required attributes that are useful for the rapid analysis and trace
+back of <strong>Influenza A Virus or SARS-COV-2</strong> cases.</p>
 <p>Here is a short description about the fields in the metadata
 worksheet.</p>
 <table class="table">
@@ -453,12 +465,11 @@ attributes, and most importantly, the fields must be sandwiched between
 <code>cmt-StructuredCommentSuffix</code>. See <a href="https://www.ncbi.nlm.nih.gov/genbank/structuredcomment/#GenBank" class="external-link">Genbank
 Structured Comment</a> for more details.</p>
 <p><br><br></p>
-<div class="section level3">
-<h3 id="you-are-now-ready-to-install-seqsender-and-batch-upload-your-submission">
+<p style="font-size: 20px">
 <a href="https://cdcgov.github.io/seqsender/articles/local_installation.html" class="external-link"><em><i class="fas fa-play" role="presentation" aria-label="play icon"></i>
 You are now ready to install <code>seqsender</code> and batch upload
-your submission</em></a><a class="anchor" aria-label="anchor" href="#you-are-now-ready-to-install-seqsender-and-batch-upload-your-submission"></a>
-</h3>
+your submission</em></a>
+</p>
 <p><br><br><br></p>
 <p>Any questions or issues? Please report them on our
 <a href="https://github.com/CDCgov/seqsender/issues" target="_blank">Github
@@ -480,7 +491,7 @@ issue tracker</a>.</p>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Dakota Howard, Reina Chau, Peter Cook, Kristine Lacek, Amanda Sullivan, Vikram Setlur, Thomas Stark, Brian Lee, Ben Rambo-Martin.</p>
+<p>Developed by Dakota Howard, Reina Chau, Peter Cook, Kristine Lacek, Amanda Sullivan, Vikram Setlur, Thomas Stark, Brian Lee, Benjamin Rambo-Martin.</p>
 </div>
 
 <div class="pkgdown">

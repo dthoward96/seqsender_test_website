@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">seqsender</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -111,6 +111,9 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
+  <a href="../news/index.html">Changelog</a>
+</li>
+<li>
   <a href="https://github.com/CDCgov/seqsender/">
     <span class="fab fa-github fa-lg"></span>
      
@@ -142,10 +145,10 @@
 <style>
   
   table {
-    border: 1px solid gray;
+    border: none;
   }
   
-  td, th {
+  td, th, tr {
     border: 1px solid gray;
     padding: 5px 5px 5px 5px;
   }
@@ -160,23 +163,43 @@ restricted-access database containing genomic sequence data of select
 virus, primarily influenza viruses. The database has expanded to include
 the coronavirus responsible for the COVID-19 pandemic as well as other
 pathogens.</p>
+</div>
+<div class="section level2">
+<h2 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
+</h2>
 <p>For all GISAID submissions, <code>seqsender</code> makes use of
-GISAID’s Command Line Interface Tools
-(e.g. <code>EpiFlu, EpiCoV, EpiRSV, EpiArbo</code>, etc.) to batch
-uploading meta- and sequence-data to their databases. Prior to perform a
-batch upload, submitters must download the <code>EpiCoV CLI</code>
-package from the GISAID platform that is compatible with their machine
-and store it in a subfolder called <code>epicov_cli</code> within a
-destination of choice..</p>
-<p><img src="images/covCLI_download.png"></p>
+GISAID’s Command Line Interface Tools (CLIs) to batch uploading meta-
+and sequence-data to their databases. Prior to perform a batch upload to
+<strong>EpiCoV database</strong>, submitters must</p>
+<ol style="list-style-type: decimal">
+<li>Download the <strong>EpiCoV CLI</strong> package from the
+<strong>GISAID Platform</strong> that is compatible with their machine
+(e.g., Linux, macOS, or Windows).</li>
+</ol>
+<p><img src="images/covCLI_download.png"><img src="images/covCLI_download_2.png"></p>
 <p><br></p>
-<p>After unzip and extracted the CLI from the downloaded package,
-submitters will need to prepare the requirement files to pass to
-<code>seqsender</code>.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Unzip the downloaded package and store it in a subfolder called
+<strong><code>gisaid_cli</code></strong> within a submission directory
+of choice (e.g., <code>submission_dir</code>).</li>
+</ol>
+<p><img src="images/gisaid_cli_dir.png"></p>
+<p><br></p>
 </div>
 <div class="section level2">
 <h2 id="requirement-files">Requirement files<a class="anchor" aria-label="anchor" href="#requirement-files"></a>
 </h2>
+<p>After submitters had obtained the <strong>GISAID CLI</strong> for
+<strong>EpiCoV</strong>, they must also prepare the requirement files
+(such as <code>config.yaml</code>, <code>metadata.csv</code>,
+<code>sequence.fasta</code>, <code>raw reads</code>, etc.) and store
+them in a submission folder of choice (e.g.,
+<code>submission_name</code>) within a parent submission directory
+(e.g., <code>submission_dir</code>). That way <code>seqsender</code>
+will be able to scoop up the necessary files in that folder, generate
+submission files, and then batch uploading them to the submitting
+database of choices.</p>
+<p>Here is a list of the requirement files and where to store them:</p>
 <ul>
 <li>
 <a href="#config-file">Config file</a> in a <code>yaml</code>
@@ -188,10 +211,10 @@ format</li>
 <a href="#metadata-file">Metadata file</a> in a <code>csv</code>
 format</li>
 </ul>
-</div>
-<div class="section level2">
-<h2 id="config-file">Config file<a class="anchor" aria-label="anchor" href="#config-file"></a>
-</h2>
+<p><img src="images/submission_dir.png"></p>
+<div class="section level3">
+<h3 id="config-file">Config file<a class="anchor" aria-label="anchor" href="#config-file"></a>
+</h3>
 <p>Config file is a yaml file that provides a brief description about
 the submission and contains user credentials that allow
 <code>seqsender</code> to authenticate the database prior to upload a
@@ -209,11 +232,11 @@ section. <br>
 <li>
 <strong>Submission_Position</strong> determines the order of
 databases in which we will submit to first. For instance, if GISAID is
-set as <code>Primary</code>, <strong><em>seqsender</em></strong> will
-submit to GISAID first, then after all samples are assigned with a
-GISAID accession number, <strong><em>seqsender</em></strong> will
-proceed to submit to NCBI. This order of submission ensures samples are
-linked correctly between the two databases. <br>
+set as <code>1</code>, <strong><em>seqsender</em></strong> will submit
+to GISAID first, then after all samples are assigned with a GISAID
+accession number, <strong><em>seqsender</em></strong> will proceed to
+submit to NCBI. This order of submission ensures samples are linked
+correctly between the two databases. <br>
 </li>
 <li>
 <strong>Username</strong> and <strong>Password</strong> under the
@@ -224,16 +247,19 @@ for more details.</li>
 </ul>
 </div>
 </div>
-<div class="section level2">
-<h2 id="fasta-file">Fasta file<a class="anchor" aria-label="anchor" href="#fasta-file"></a>
-</h2>
+<div class="section level3">
+<h3 id="fasta-file">Fasta file<a class="anchor" aria-label="anchor" href="#fasta-file"></a>
+</h3>
 <p>Fasta file contains nucleotide sequences for all samples. See <a href="https://www.ncbi.nlm.nih.gov/genbank/fastaformat/" class="external-link">Genbank Fasta
 Format</a> for more details.</p>
 <p><img src="images/covCLI_fasta.png"></p>
 </div>
-<div class="section level2">
-<h2 id="metadata-file">Metadata file<a class="anchor" aria-label="anchor" href="#metadata-file"></a>
-</h2>
+<div class="section level3">
+<h3 id="metadata-file">Metadata file<a class="anchor" aria-label="anchor" href="#metadata-file"></a>
+</h3>
+<p>The metadata worksheet is a comma-delimited (csv) file that contains
+required attributes that are useful for the rapid analysis and trace
+back of <strong>SARS-COV-2</strong> cases.</p>
 <p>Here is a short description about the fields in the metadata
 worksheet.</p>
 <table class="table">
@@ -448,18 +474,156 @@ Complete building address of the submitting laboratory.
 <p><br></p>
 <p><strong>NOTE:</strong> The prefix of <strong>“gs-”</strong> is used
 to identity attributes for <strong>GISAID</strong> submissions.</p>
+<p><br></p>
+<div class="section level4">
+<h4 id="optional-attributes">
+<b>Optional Attributes</b><a class="anchor" aria-label="anchor" href="#optional-attributes"></a>
+</h4>
+<p>To include additional attributes to <strong>EpiCoV</strong>
+submissions, just append <code>gs-</code> in front of the desired
+attributes. Here is a list of optional attributes:</p>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+Column_name
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+add_location
+</td>
+<td style="text-align:left;">
+e.g. Cruise Ship, Convention, Live animal market
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+add_host_info
+</td>
+<td style="text-align:left;">
+e.g. Patient infected while traveling in
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sampling_strategy
+</td>
+<td style="text-align:left;">
+e.g. Sentinel surveillance (ILI), Sentinel surveillance (ARI), Sentinel
+surveillance (SARI), Non-sentinel-surveillance (hospital),
+Non-sentinel-surveillance (GP network), Longitudinal sampling on same
+patient(s), S gene dropout
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+specimen
+</td>
+<td style="text-align:left;">
+e.g. Sputum, Alveolar lavage fluid, Oro-pharyngeal swab, Blood, Tracheal
+swab, Urine, Stool, Cloakal swab, Organ, Feces, Other
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+outbreak
+</td>
+<td style="text-align:left;">
+Date, Location e.g. type of gathering, Family cluster, etc.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+last_vaccinated
+</td>
+<td style="text-align:left;">
+provide details if applicable
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+treatment
+</td>
+<td style="text-align:left;">
+Include drug name, dosage
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+assembly_method
+</td>
+<td style="text-align:left;">
+e.g. CLC Genomics Workbench 12, Geneious 10.2.4, SPAdes/MEGAHIT v1.2.9,
+UGENE v. 33, etc.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+coverage
+</td>
+<td style="text-align:left;">
+e.g. 70x, 1,000x, 10,000x (average)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+provider_sample_id
+</td>
+<td style="text-align:left;">
+Sample ID given by originating laboratory
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+subm_sample_id
+</td>
+<td style="text-align:left;">
+Sample ID given by the submitting laboratory
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+consortium
+</td>
+<td style="text-align:left;">
+Sequencing consortium the submitting lab is affiliated to
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+comment
+</td>
+<td style="text-align:left;">
+Comment
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+comment_type
+</td>
+<td style="text-align:left;">
+Comment icon
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
 <p><br><br></p>
-<div class="section level3">
-<h3 id="you-are-now-ready-to-install-seqsender-and-batch-upload-your-submission">
+<p style="font-size: 20px">
 <a href="https://cdcgov.github.io/seqsender/articles/local_installation.html" class="external-link"><em><i class="fas fa-play" role="presentation" aria-label="play icon"></i>
 You are now ready to install <code>seqsender</code> and batch upload
-your submission</em></a><a class="anchor" aria-label="anchor" href="#you-are-now-ready-to-install-seqsender-and-batch-upload-your-submission"></a>
-</h3>
+your submission</em></a>
+</p>
 <p><br><br><br></p>
 <p>Any questions or issues? Please report them on our
 <a href="https://github.com/CDCgov/seqsender/issues" target="_blank">Github
 issue tracker</a>.</p>
 <p><br></p>
+</div>
 </div>
 </div>
   </div>
@@ -476,7 +640,7 @@ issue tracker</a>.</p>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Dakota Howard, Reina Chau, Peter Cook, Kristine Lacek, Amanda Sullivan, Vikram Setlur, Thomas Stark, Brian Lee, Ben Rambo-Martin.</p>
+<p>Developed by Dakota Howard, Reina Chau, Peter Cook, Kristine Lacek, Amanda Sullivan, Vikram Setlur, Thomas Stark, Brian Lee, Benjamin Rambo-Martin.</p>
 </div>
 
 <div class="pkgdown">
