@@ -138,14 +138,51 @@
   <div class="contents col-md-9">
 
 <p style="font-size: 16px;">
-<em>Public Database Submission Pipeline</em>
 </p>
+<p><em>Public Database Submission Pipeline</em></p>
+
 <p><strong>Beta Version</strong>: 1.1.0. This pipeline is currently in Beta testing, and issues could appear during submission. Please use it at your own risk. Feedback and suggestions are welcome!</p>
 <p><strong>General Disclaimer</strong>: This repository was created for use by CDC programs to collaborate on public health related projects in support of the <a href="https://www.cdc.gov/about/organization/mission.htm" class="external-link">CDC mission</a>. GitHub is not hosted by the CDC, but is a third party website used by CDC and its partners to share information and collaborate on software. CDC use of GitHub does not imply an endorsement of any one particular service, product, or enterprise.</p>
+<div class="section level1">
+<div class="page-header"><h1 id="documentation">
+<a href="https://cdcgov.github.io/seqsender/index.html" class="external-link">Documentation</a><a class="anchor" aria-label="anchor" href="#documentation"></a>
+</h1></div>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
 <p><code>seqsender</code> is a Python program that is developed to automate the process of generating necessary submission files and batch uploading them to <ins>NCBI archives</ins> (such as <strong>BioSample</strong>, <strong>SRA</strong>, and <strong>Genbank</strong>) and <ins>GISAID databases</ins> (e.g. <strong>EpiFlu</strong> and <strong>EpiCoV</strong>). Presently, the pipeline is capable of uploading <strong>Influenza A Virus</strong> (FLU) and <strong>SARS-COV-2</strong> (COV) data. However, the dynamic nature of this pipeline can allow for additional uploads of other organisms in future updates or requests.</p>
+</div>
+<div class="section level2">
+<h2 id="contacts">Contacts<a class="anchor" aria-label="anchor" href="#contacts"></a>
+</h2>
+<table class="table">
+<colgroup>
+<col width="10%">
+<col width="89%">
+</colgroup>
+<thead><tr class="header">
+<th>Role</th>
+<th>Contact</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Creator</td>
+<td>
+<a href="https://github.com/dthoward96" class="external-link">Dakota Howard</a>, <a href="https://github.com/rchau88" class="external-link">Reina Chau</a>
+</td>
+</tr>
+<tr class="even">
+<td>Maintainer</td>
+<td><a href="https://github.com/dthoward96" class="external-link">Dakota Howard</a></td>
+</tr>
+<tr class="odd">
+<td>Back-Up</td>
+<td>
+<a href="https://github.com/rchau88" class="external-link">Reina Chau</a>, <a href="https://github.com/leebrian" class="external-link">Brian Lee</a>
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level2">
 <h2 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a>
@@ -161,7 +198,7 @@
 <li><p>Refer to this page for information regarding requirements for GenBank submissions via FTP only. This page applies only for COVID and Influenza <a href="https://submit.ncbi.nlm.nih.gov/sarscov2/genbank/#step5" class="external-link">NCBI GenBank FTP Submissions</a> For further questions contact <a href="mailto:gb-admin@ncbi.nlm.nih.gov">gb-admin@ncbi.nlm.nih.gov</a> to discuss requirements for submissions.</p></li>
 <li><p>Coordinate a NCBI namespace name (<strong>spuid_namespace</strong>) that will be used with Submitter Provided Unique Identifiers (<strong>spuid</strong>) in the submission. The liaison of <strong>spuid_namespace</strong> and <strong>spuid</strong> is used to report back assigned accessions as well as for cross-linking objects within submission. The values of <strong>spuid_namespace</strong> are up to the submitter to decide but they must be unique and well-coordinated prior to make a submission. For more information about these two fields, see <a href="https://cdcgov.github.io/seqsender/articles/biosample_submission.html#metadata" class="external-link">BioSample</a> / <a href="https://cdcgov.github.io/seqsender/articles/sra_submission.html#metadata" class="external-link">SRA</a> / <a href="https://cdcgov.github.io/seqsender/articles/genbank_submission.html#metadata" class="external-link">GENBANK</a> metadata requirements.</p></li>
 </ol>
-<ul>
+<!-- end list --><ul>
 <li><strong>GISAID Submissions</strong></li>
 </ul>
 <p><code>seqsender</code> makes use of GISAID’s Command Line Interface tools to bulk uploading meta- and sequence-data to GISAID databases. Presently, the pipeline only allows upload to EpiFlu (<strong>Influenza A Virus</strong>) and EpiCoV (<strong>SARS-COV-2</strong>) databases. Before uploading, submitter needs to</p>
@@ -201,6 +238,11 @@
 </ul>
 </div>
 <div class="section level2">
+<h2 id="code-attributions">Code Attributions<a class="anchor" aria-label="anchor" href="#code-attributions"></a>
+</h2>
+<p>Dakota Howard and Reina Chau for majority of the code base with input and testing from <a href="https://cdcgov.github.io/seqsender/authors.html" class="external-link">colleagues</a>.</p>
+</div>
+<div class="section level2">
 <h2 id="public-domain-standard-notice">Public Domain Standard Notice<a class="anchor" aria-label="anchor" href="#public-domain-standard-notice"></a>
 </h2>
 <p>This repository constitutes a work of the United States Government and is not subject to domestic copyright protection under 17 USC § 105. This repository is in the public domain within the United States, and copyright and related rights in the work worldwide are waived through the <a href="https://creativecommons.org/publicdomain/zero/1.0/" class="external-link">CC0 1.0 Universal public domain dedication</a>. All contributions to this repository will be released under the CC0 dedication. By submitting a pull request you are agreeing to comply with this waiver of copyright interest.</p>
@@ -234,6 +276,7 @@
 <h2 id="additional-standard-notices">Additional Standard Notices<a class="anchor" aria-label="anchor" href="#additional-standard-notices"></a>
 </h2>
 <p>Please refer to <a href="https://github.com/CDCgov/template" class="external-link">CDC’s Template Repository</a> for more information about <a href="https://github.com/CDCgov/template/blob/master/CONTRIBUTING.md" class="external-link">contributing to this repository</a>, <a href="https://github.com/CDCgov/template/blob/master/DISCLAIMER.md" class="external-link">public domain notices and disclaimers</a>, and <a href="https://github.com/CDCgov/template/blob/master/code-of-conduct.md" class="external-link">code of conduct</a>.</p>
+</div>
 </div>
 
   </div>
