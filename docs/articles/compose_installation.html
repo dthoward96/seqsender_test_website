@@ -168,33 +168,33 @@ FILES</a> before proceeding to the next steps</p>
 <div class="section level3">
 <h3 id="clone-seqsender-repo-to-your-home-directory">(1) Clone <code>seqsender</code> repo to your $HOME directory<a class="anchor" aria-label="anchor" href="#clone-seqsender-repo-to-your-home-directory"></a>
 </h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$HOME</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/CDCgov/seqsender.git</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$HOME</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/CDCgov/seqsender.git</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="navigate-to-seqsender-folder-where-docker-compose-yml-is-stored-and-edit-that-file-to-link-the-data-inputs-to-run-seqsender">(2) Navigate to <code>seqsender</code> folder where
 <code>docker-compose.yml</code> is stored and edit that file to link the
 data inputs to run <code>seqsender</code><a class="anchor" aria-label="anchor" href="#navigate-to-seqsender-folder-where-docker-compose-yml-is-stored-and-edit-that-file-to-link-the-data-inputs-to-run-seqsender"></a>
 </h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> seqsender</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="bu">cd</span> seqsender</span></code></pre></div>
 <p>Here is a quick look of the <code>docker-compose.yaml</code>
 file:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">version:</span> <span class="st">"3.9"</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">x-data-volumes:</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">&amp;</span><span class="ex">data-volume</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">type:</span> bind</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">source:</span> <span class="va">$HOME</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">target:</span> /data</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">services:</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">seqsender:</span> </span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">container_name:</span> seqsender</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">image:</span> cdcgov/seqsender-dev:latest</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="ex">restart:</span> always</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="ex">volumes:</span> </span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>      <span class="ex">-</span> <span class="pp">*</span>data-volume</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">command:</span> tail <span class="at">-f</span> /dev/null </span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">version:</span> <span class="st">"3.9"</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="ex">x-data-volumes:</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="kw">&amp;</span><span class="ex">data-volume</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="ex">type:</span> bind</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="ex">source:</span> <span class="va">$HOME</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  <span class="ex">target:</span> /data</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="ex">services:</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>  <span class="ex">seqsender:</span> </span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>    <span class="ex">container_name:</span> seqsender</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>    <span class="ex">image:</span> cdcgov/seqsender-dev:latest</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>    <span class="ex">restart:</span> always</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>    <span class="ex">volumes:</span> </span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>      <span class="ex">-</span> <span class="pp">*</span>data-volume</span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>    <span class="ex">command:</span> tail <span class="at">-f</span> /dev/null </span></code></pre></div>
 <p><em><strong>NOTE:</strong> <code>source</code> is the storage
 location of your local machine. This location will be mapped to
 <code>/data</code> directory inside the container. Here we are mounting
@@ -204,7 +204,7 @@ container.</em></p>
 <div class="section level3">
 <h3 id="start-up-the-seqsender-container">(3) Start up the <code>seqsender</code> container<a class="anchor" aria-label="anchor" href="#start-up-the-seqsender-container"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker-compose</span> up <span class="at">-d</span> </span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="ex">docker-compose</span> up <span class="at">-d</span> </span></code></pre></div>
 <p><strong><code>-d</code></strong>: run the container in detached mode
 <br></p>
 <p>For more information about the docker-compose syntax, see
@@ -214,29 +214,29 @@ up reference</a></p>
 <div class="section level3">
 <h3 id="check-if-the-container-is-running">(4) Check if the container is running<a class="anchor" aria-label="anchor" href="#check-if-the-container-is-running"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> container ps</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">CONTAINER</span> ID   IMAGE                COMMAND        CREATED         STATUS        PORTS      NAMES</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">b37b6b19c4e8</span>   seqsender:latest     <span class="st">"/bin/bash"</span>    5 hours ago     Up 5 hours               seqsender</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">docker</span> container ps</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="ex">CONTAINER</span> ID   IMAGE                COMMAND        CREATED         STATUS        PORTS      NAMES</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="ex">b37b6b19c4e8</span>   seqsender:latest     <span class="st">"/bin/bash"</span>    5 hours ago     Up 5 hours               seqsender</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="see-a-list-of-commands-in-seqsender-container">(5) See a list of commands in <code>seqsender</code> container<a class="anchor" aria-label="anchor" href="#see-a-list-of-commands-in-seqsender-container"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff <span class="at">--help</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff <span class="at">--help</span></span></code></pre></div>
 <p><strong><code>-t</code></strong>: allocate a pseudo-tty <br><strong>-i</strong>: keep STDIN open even if not attached <br><strong><code>-h</code></strong>, <strong><code>--help</code></strong>:
 show help messages and exit</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">usage:</span> seqsender.py [-h]</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                    <span class="dt">{prep</span><span class="op">,</span><span class="dt">submit</span><span class="op">,</span><span class="dt">check_submission_status</span><span class="op">,</span><span class="dt">template</span><span class="op">,</span><span class="dt">version}</span> ...</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Automate</span> the process of batch uploading consensus sequences and metadata to</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">databases</span> of your choices</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ex">positional</span> arguments:</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">{prep</span><span class="op">,</span><span class="dt">submit</span><span class="op">,</span><span class="dt">check_submission_status</span><span class="op">,</span><span class="dt">template</span><span class="op">,</span><span class="dt">version}</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="ex">optional</span> arguments:</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">-h,</span> <span class="at">--help</span>            show this help message and exit</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="ex">usage:</span> seqsender.py <span class="pp">[-</span><span class="ss">h</span><span class="pp">]</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>                    <span class="dt">{prep</span><span class="op">,</span><span class="dt">submit</span><span class="op">,</span><span class="dt">check_submission_status</span><span class="op">,</span><span class="dt">template</span><span class="op">,</span><span class="dt">version}</span> ...</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="ex">Automate</span> the process of batch uploading consensus sequences and metadata to</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="ex">databases</span> of your choices</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="ex">positional</span> arguments:</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  <span class="dt">{prep</span><span class="op">,</span><span class="dt">submit</span><span class="op">,</span><span class="dt">check_submission_status</span><span class="op">,</span><span class="dt">template</span><span class="op">,</span><span class="dt">version}</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="ex">optional</span> arguments:</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  <span class="ex">-h,</span> <span class="at">--help</span>            show this help message and exit</span></code></pre></div>
 <p>Rather than hastily jump in and submit a <code>production</code>
 submission right away, we can utilize GISAID’s and NCBI’s
 <strong>“TEST-SERVER”</strong> to upload a <code>test</code> submission
@@ -259,35 +259,35 @@ dataset provided with the software.</p>
 <p>The <code>template</code> command will allow you to output examples
 of metadata and config files so you can base your submission on prior to
 upload a real submission. To get more help on the command, run</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff template <span class="at">--help</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">usage:</span> seqsender.py template [-h] [--biosample] [--sra] [--genbank] [--gisaid]</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                             <span class="ex">--organism</span> <span class="dt">{FLU</span><span class="op">,</span><span class="dt">COV}</span> <span class="at">--submission_dir</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                             <span class="ex">SUBMISSION_DIR</span> <span class="at">--submission_name</span> SUBMISSION_NAME</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Return</span> a set of files <span class="er">(</span><span class="ex">e.g.,</span> config file, metadata file, fasta files, etc.<span class="kw">)</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="ex">that</span> are needed to make a submission</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="ex">optional</span> arguments:</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">-h,</span> <span class="at">--help</span>            show this help message and exit</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--biosample,</span> <span class="at">-b</span>       Submit to BioSample. <span class="er">(</span><span class="ex">default:</span> <span class="kw">)</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--sra,</span> <span class="at">-s</span>             Submit to SRA. <span class="er">(</span><span class="ex">default:</span> <span class="kw">)</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--genbank,</span> <span class="at">-n</span>         Submit to Genbank. <span class="er">(</span><span class="ex">default:</span> <span class="kw">)</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--gisaid,</span> <span class="at">-g</span>          Submit to GISAID. <span class="er">(</span><span class="ex">default:</span> <span class="kw">)</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--organism</span> <span class="dt">{FLU</span><span class="op">,</span><span class="dt">COV}</span>  Type of organism data <span class="er">(</span><span class="ex">default:</span> FLU<span class="kw">)</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--submission_dir</span> SUBMISSION_DIR</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">Directory</span> to where all required files <span class="er">(</span><span class="ex">such</span> as</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">metadata,</span> fasta, etc.<span class="kw">)</span> <span class="ex">are</span> stored <span class="er">(</span><span class="ex">default:</span> None<span class="kw">)</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">--submission_name</span> SUBMISSION_NAME</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>                        <span class="ex">Name</span> of the submission <span class="er">(</span><span class="ex">default:</span> None<span class="kw">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff template <span class="at">--help</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="ex">usage:</span> seqsender.py template <span class="pp">[-</span><span class="ss">h</span><span class="pp">]</span> <span class="pp">[--</span><span class="ss">biosample</span><span class="pp">]</span> <span class="pp">[--</span><span class="ss">sra</span><span class="pp">]</span> <span class="pp">[--</span><span class="ss">genbank</span><span class="pp">]</span> <span class="pp">[--</span><span class="ss">gisaid</span><span class="pp">]</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>                             <span class="ex">--organism</span> <span class="dt">{FLU</span><span class="op">,</span><span class="dt">COV}</span> <span class="at">--submission_dir</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>                             <span class="ex">SUBMISSION_DIR</span> <span class="at">--submission_name</span> SUBMISSION_NAME</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="ex">Return</span> a set of files <span class="er">(</span><span class="ex">e.g.,</span> config file, metadata file, fasta files, etc.<span class="kw">)</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="ex">that</span> are needed to make a submission</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="ex">optional</span> arguments:</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>  <span class="ex">-h,</span> <span class="at">--help</span>            show this help message and exit</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>  <span class="ex">--biosample,</span> <span class="at">-b</span>       Submit to BioSample. <span class="er">(</span><span class="ex">default:</span> <span class="kw">)</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>  <span class="ex">--sra,</span> <span class="at">-s</span>             Submit to SRA. <span class="er">(</span><span class="ex">default:</span> <span class="kw">)</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>  <span class="ex">--genbank,</span> <span class="at">-n</span>         Submit to Genbank. <span class="er">(</span><span class="ex">default:</span> <span class="kw">)</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>  <span class="ex">--gisaid,</span> <span class="at">-g</span>          Submit to GISAID. <span class="er">(</span><span class="ex">default:</span> <span class="kw">)</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>  <span class="ex">--organism</span> <span class="dt">{FLU</span><span class="op">,</span><span class="dt">COV}</span>  Type of organism data <span class="er">(</span><span class="ex">default:</span> FLU<span class="kw">)</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>  <span class="ex">--submission_dir</span> SUBMISSION_DIR</span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>                        <span class="ex">Directory</span> to where all required files <span class="er">(</span><span class="ex">such</span> as</span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a>                        <span class="ex">metadata,</span> fasta, etc.<span class="kw">)</span> <span class="ex">are</span> stored <span class="er">(</span><span class="ex">default:</span> None<span class="kw">)</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a>  <span class="ex">--submission_name</span> SUBMISSION_NAME</span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a>                        <span class="ex">Name</span> of the submission <span class="er">(</span><span class="ex">default:</span> None<span class="kw">)</span></span></code></pre></div>
 <p><br></p>
 <div class="section level4">
 <h4 id="download-the-pre-processed-meta--and-sequence-data">1. Download the pre-processed meta- and sequence-data<a class="anchor" aria-label="anchor" href="#download-the-pre-processed-meta--and-sequence-data"></a>
 </h4>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff template <span class="dt">\</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>--organism FLU <span class="dt">\</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>-bsng <span class="dt">\</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>--submission_dir /data <span class="dt">\</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>--submission_name flu-test-submission</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff template <span class="dt">\</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>--organism FLU <span class="dt">\</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>-bsng <span class="dt">\</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>--submission_dir /data <span class="dt">\</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>--submission_name flu-test-submission</span></code></pre></div>
 <ul>
 <li>
 <strong><code>--organism</code></strong> specifies the type of data
@@ -323,10 +323,10 @@ etc.) in order to make a submission.</li>
 <p>A quick look at the output files:</p>
 <p><img src="images/submission_dir.png"></p>
 <p>Here is the standard out of the command.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Generating</span> submission template</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Total</span> runtime <span class="er">(</span><span class="ex">HRS:MIN:SECS</span><span class="kw">)</span><span class="bu">:</span> 0:00:00.115140</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="ex">Generating</span> submission template</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="ex">Total</span> runtime <span class="er">(</span><span class="ex">HRS:MIN:SECS</span><span class="kw">)</span><span class="bu">:</span> 0:00:00.115140</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="set-up-the-config-file-config-yaml">2. Set up the config file – <code>config.yaml</code><a class="anchor" aria-label="anchor" href="#set-up-the-config-file-config-yaml"></a>
@@ -390,22 +390,22 @@ CLI</strong> package,</p>
 <p><img src="images/gisaid_cli_dir.png"></p>
 <p><em><strong>Important:</strong> Make sure you binary CLI package are
 executable. To allow executable permissions, run</em></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> a+x <span class="op">&lt;</span>your_gisaid_cli_binary<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">chmod</span> a+x <span class="op">&lt;</span>your_gisaid_cli_binary<span class="op">&gt;</span></span></code></pre></div>
 </div>
 <p><br></p>
 </div>
 <div class="section level4">
 <h4 id="upload-a-test-submission">3. Upload a test submission<a class="anchor" aria-label="anchor" href="#upload-a-test-submission"></a>
 </h4>
-<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff submit <span class="dt">\</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>--organism FLU <span class="dt">\</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>-bsng <span class="dt">\</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>--submission_dir /data <span class="dt">\</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>--submission_name flu-test-submission <span class="dt">\</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>--config_file config.yaml <span class="dt">\</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>--metadata_file metadata.csv <span class="dt">\</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>--fasta_file sequence.fasta <span class="dt">\</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>--test</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff submit <span class="dt">\</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>--organism FLU <span class="dt">\</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>-bsng <span class="dt">\</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>--submission_dir /data <span class="dt">\</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>--submission_name flu-test-submission <span class="dt">\</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>--config_file config.yaml <span class="dt">\</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>--metadata_file metadata.csv <span class="dt">\</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>--fasta_file sequence.fasta <span class="dt">\</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>--test</span></code></pre></div>
 <ul>
 <li>
 <strong><code>--organism</code></strong> specifies the type of data
@@ -455,53 +455,53 @@ the <code>--submission_name</code> directory. <br>
 submission, please remove this flag.</li>
 </ul>
 <p>A quick look at the standard output.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Creating</span> submission files for BIOSAMPLE</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/BIOSAMPLE</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Creating</span> submission files for SRA</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/SRA</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Creating</span> submission files for GENBANK</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/GENBANK</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Creating</span> submission files for GISAID</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/GISAID</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Uploading</span> submission files to NCBI-BIOSAMPLE</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Performing</span> a <span class="st">'Test'</span> submission</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="ex">If</span> this is not a <span class="st">'Test'</span> submission, interrupts submission immediately.</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="ex">Connecting</span> to NCBI FTP Server</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> name: flu-test-submission</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="ex">Submitting</span> <span class="st">'flu-test-submission'</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="ex">Uploading</span> submission files to NCBI-SRA</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="ex">Performing</span> a <span class="st">'Test'</span> submission</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="ex">If</span> this is not a <span class="st">'Test'</span> submission, interrupts submission immediately.</span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a><span class="ex">Connecting</span> to NCBI FTP Server</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> name: flu-test-submission</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="ex">Submitting</span> <span class="st">'flu-test-submission'</span></span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a><span class="ex">Uploading</span> submission files to GISAID-FLU</span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="ex">Performing</span> a <span class="st">'Test'</span> submission with Client-Id: TEST-EA76875B00C3</span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="ex">If</span> this is not a <span class="st">'Test'</span> submission, interrupts submission immediately.</span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> attempt: 1</span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="ex">Uploading</span> successfully</span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="ex">Status</span> report is stored at: /data/flu-test-submission/submission_report_status.csv</span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="ex">Log</span> file is stored at: /data/flu-test-submission/submission_files/GISAID/gisaid_upload_log_attempt_1.txt</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="ex">Creating</span> submission files for BIOSAMPLE</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/BIOSAMPLE</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="ex">Creating</span> submission files for SRA</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/SRA</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="ex">Creating</span> submission files for GENBANK</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/GENBANK</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="ex">Creating</span> submission files for GISAID</span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/GISAID</span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a><span class="ex">Uploading</span> submission files to NCBI-BIOSAMPLE</span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="ex">Performing</span> a <span class="st">'Test'</span> submission</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="ex">If</span> this is not a <span class="st">'Test'</span> submission, interrupts submission immediately.</span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="ex">Connecting</span> to NCBI FTP Server</span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="ex">Submission</span> name: flu-test-submission</span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="ex">Submitting</span> <span class="st">'flu-test-submission'</span></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a></span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a><span class="ex">Uploading</span> submission files to NCBI-SRA</span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a><span class="ex">Performing</span> a <span class="st">'Test'</span> submission</span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a><span class="ex">If</span> this is not a <span class="st">'Test'</span> submission, interrupts submission immediately.</span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a><span class="ex">Connecting</span> to NCBI FTP Server</span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a><span class="ex">Submission</span> name: flu-test-submission</span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a><span class="ex">Submitting</span> <span class="st">'flu-test-submission'</span></span>
+<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a></span>
+<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a><span class="ex">Uploading</span> submission files to GISAID-FLU</span>
+<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a><span class="ex">Performing</span> a <span class="st">'Test'</span> submission with Client-Id: TEST-EA76875B00C3</span>
+<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a><span class="ex">If</span> this is not a <span class="st">'Test'</span> submission, interrupts submission immediately.</span>
+<span id="cb14-32"><a href="#cb14-32" tabindex="-1"></a></span>
+<span id="cb14-33"><a href="#cb14-33" tabindex="-1"></a><span class="ex">Submission</span> attempt: 1</span>
+<span id="cb14-34"><a href="#cb14-34" tabindex="-1"></a><span class="ex">Uploading</span> successfully</span>
+<span id="cb14-35"><a href="#cb14-35" tabindex="-1"></a><span class="ex">Status</span> report is stored at: /data/flu-test-submission/submission_report_status.csv</span>
+<span id="cb14-36"><a href="#cb14-36" tabindex="-1"></a><span class="ex">Log</span> file is stored at: /data/flu-test-submission/submission_files/GISAID/gisaid_upload_log_attempt_1.txt</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="check-the-status-of-a-submission">4. Check the status of a submission<a class="anchor" aria-label="anchor" href="#check-the-status-of-a-submission"></a>
 </h4>
 <p>After a submission is submitted, you can routinely check the status
 of the submission.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff check_submission_status <span class="dt">\</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>--organism FLU <span class="dt">\</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>--submission_dir /data <span class="dt">\</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>--submission_name flu-test-submission <span class="dt">\</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>--test</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff check_submission_status <span class="dt">\</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>--organism FLU <span class="dt">\</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>--submission_dir /data <span class="dt">\</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>--submission_name flu-test-submission <span class="dt">\</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>--test</span></code></pre></div>
 <ul>
 <li>
 <strong><code>--organism</code></strong> specifies the type of data.
@@ -525,27 +525,27 @@ etc.) in order to make a submission. <br>
 submission, please remove this flag.</li>
 </ul>
 <p>Here is a quick look at the standard output:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Checking</span> submission status for:</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> name: flu-test-submission</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> organism: FLU</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> type: Test</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> database: GISAID</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> status: processed-ok</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> database: BIOSAMPLE</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Pulling</span> down report.xml</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> status: submitted</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> database: SRA</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="ex">Pulling</span> down report.xml</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> status: submitted</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> database: GENBANK</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> status: <span class="at">---</span></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="ex">Total</span> runtime <span class="er">(</span><span class="ex">HRS:MIN:SECS</span><span class="kw">)</span><span class="bu">:</span> 0:00:08.213955</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="ex">Checking</span> submission status for:</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="ex">Submission</span> name: flu-test-submission</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="ex">Submission</span> organism: FLU</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="ex">Submission</span> type: Test</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="ex">Submission</span> database: GISAID</span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="ex">Submission</span> status: processed-ok</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="ex">Submission</span> database: BIOSAMPLE</span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="ex">Pulling</span> down report.xml</span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="ex">Submission</span> status: submitted</span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="ex">Submission</span> database: SRA</span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="ex">Pulling</span> down report.xml</span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="ex">Submission</span> status: submitted</span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a><span class="ex">Submission</span> database: GENBANK</span>
+<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a><span class="ex">Submission</span> status: <span class="at">---</span></span>
+<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a></span>
+<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a><span class="ex">Total</span> runtime <span class="er">(</span><span class="ex">HRS:MIN:SECS</span><span class="kw">)</span><span class="bu">:</span> 0:00:08.213955</span></code></pre></div>
 <p>Here is a list of submission statuses and its meanings:</p>
 <blockquote>
 <ol style="list-style-type: decimal">
@@ -640,7 +640,7 @@ package.</p>
 <p><img src="images/gisaid_cli_dir.png"></p>
 <p><em><strong>Important:</strong> Make sure you binary CLI package are
 executable. To allow executable permissions, run</em></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> a+x <span class="op">&lt;</span>your_gisaid_cli_binary<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">chmod</span> a+x <span class="op">&lt;</span>your_gisaid_cli_binary<span class="op">&gt;</span></span></code></pre></div>
 </div>
 <p><br></p>
 </div>
@@ -649,15 +649,15 @@ executable. To allow executable permissions, run</em></p>
 </h4>
 <p>After all files are (i) are prepared, we can go ahead and upload the
 submission</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff submit <span class="dt">\</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>--organism FLU <span class="dt">\</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>-bsng <span class="dt">\</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>--submission_dir /data <span class="dt">\</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>--submission_name flu-test-submission <span class="dt">\</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>--config_file config.yaml <span class="dt">\</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>--metadata_file metadata.csv <span class="dt">\</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>--fasta_file sequence.fasta <span class="dt">\</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>--test</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff submit <span class="dt">\</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>--organism FLU <span class="dt">\</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>-bsng <span class="dt">\</span></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>--submission_dir /data <span class="dt">\</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>--submission_name flu-test-submission <span class="dt">\</span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>--config_file config.yaml <span class="dt">\</span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>--metadata_file metadata.csv <span class="dt">\</span></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>--fasta_file sequence.fasta <span class="dt">\</span></span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>--test</span></code></pre></div>
 <ul>
 <li>
 <strong><code>--organism</code></strong> specifies the type of data
@@ -707,53 +707,53 @@ the <code>--submission_name</code> directory. <br>
 submission, please remove this flag.</li>
 </ul>
 <p>A quick look at the standard output.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Creating</span> submission files for BIOSAMPLE</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/BIOSAMPLE</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Creating</span> submission files for SRA</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/SRA</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Creating</span> submission files for GENBANK</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/GENBANK</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Creating</span> submission files for GISAID</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/GISAID</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="ex">Uploading</span> submission files to NCBI-BIOSAMPLE</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Performing</span> a <span class="st">'Test'</span> submission</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="ex">If</span> this is not a <span class="st">'Test'</span> submission, interrupts submission immediately.</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="ex">Connecting</span> to NCBI FTP Server</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> name: flu-test-submission</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="ex">Submitting</span> <span class="st">'flu-test-submission'</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="ex">Uploading</span> submission files to NCBI-SRA</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="ex">Performing</span> a <span class="st">'Test'</span> submission</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="ex">If</span> this is not a <span class="st">'Test'</span> submission, interrupts submission immediately.</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a><span class="ex">Connecting</span> to NCBI FTP Server</span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> name: flu-test-submission</span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="ex">Submitting</span> <span class="st">'flu-test-submission'</span></span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="ex">Uploading</span> submission files to GISAID-FLU</span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="ex">Performing</span> a <span class="st">'Test'</span> submission with Client-Id: TEST-EA76875B00C3</span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="ex">If</span> this is not a <span class="st">'Test'</span> submission, interrupts submission immediately.</span>
-<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> attempt: 1</span>
-<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="ex">Uploading</span> successfully</span>
-<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a><span class="ex">Status</span> report is stored at: /data/flu-test-submission/submission_report_status.csv</span>
-<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a><span class="ex">Log</span> file is stored at: /data/flu-test-submission/submission_files/GISAID/gisaid_upload_log_attempt_1.txt</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="ex">Creating</span> submission files for BIOSAMPLE</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/BIOSAMPLE</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="ex">Creating</span> submission files for SRA</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/SRA</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="ex">Creating</span> submission files for GENBANK</span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/GENBANK</span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="ex">Creating</span> submission files for GISAID</span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="ex">Files</span> are stored at: /data/flu-test-submission/submission_files/GISAID</span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="ex">Uploading</span> submission files to NCBI-BIOSAMPLE</span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a><span class="ex">Performing</span> a <span class="st">'Test'</span> submission</span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a><span class="ex">If</span> this is not a <span class="st">'Test'</span> submission, interrupts submission immediately.</span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" tabindex="-1"></a><span class="ex">Connecting</span> to NCBI FTP Server</span>
+<span id="cb19-18"><a href="#cb19-18" tabindex="-1"></a><span class="ex">Submission</span> name: flu-test-submission</span>
+<span id="cb19-19"><a href="#cb19-19" tabindex="-1"></a><span class="ex">Submitting</span> <span class="st">'flu-test-submission'</span></span>
+<span id="cb19-20"><a href="#cb19-20" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" tabindex="-1"></a><span class="ex">Uploading</span> submission files to NCBI-SRA</span>
+<span id="cb19-22"><a href="#cb19-22" tabindex="-1"></a><span class="ex">Performing</span> a <span class="st">'Test'</span> submission</span>
+<span id="cb19-23"><a href="#cb19-23" tabindex="-1"></a><span class="ex">If</span> this is not a <span class="st">'Test'</span> submission, interrupts submission immediately.</span>
+<span id="cb19-24"><a href="#cb19-24" tabindex="-1"></a></span>
+<span id="cb19-25"><a href="#cb19-25" tabindex="-1"></a><span class="ex">Connecting</span> to NCBI FTP Server</span>
+<span id="cb19-26"><a href="#cb19-26" tabindex="-1"></a><span class="ex">Submission</span> name: flu-test-submission</span>
+<span id="cb19-27"><a href="#cb19-27" tabindex="-1"></a><span class="ex">Submitting</span> <span class="st">'flu-test-submission'</span></span>
+<span id="cb19-28"><a href="#cb19-28" tabindex="-1"></a></span>
+<span id="cb19-29"><a href="#cb19-29" tabindex="-1"></a><span class="ex">Uploading</span> submission files to GISAID-FLU</span>
+<span id="cb19-30"><a href="#cb19-30" tabindex="-1"></a><span class="ex">Performing</span> a <span class="st">'Test'</span> submission with Client-Id: TEST-EA76875B00C3</span>
+<span id="cb19-31"><a href="#cb19-31" tabindex="-1"></a><span class="ex">If</span> this is not a <span class="st">'Test'</span> submission, interrupts submission immediately.</span>
+<span id="cb19-32"><a href="#cb19-32" tabindex="-1"></a></span>
+<span id="cb19-33"><a href="#cb19-33" tabindex="-1"></a><span class="ex">Submission</span> attempt: 1</span>
+<span id="cb19-34"><a href="#cb19-34" tabindex="-1"></a><span class="ex">Uploading</span> successfully</span>
+<span id="cb19-35"><a href="#cb19-35" tabindex="-1"></a><span class="ex">Status</span> report is stored at: /data/flu-test-submission/submission_report_status.csv</span>
+<span id="cb19-36"><a href="#cb19-36" tabindex="-1"></a><span class="ex">Log</span> file is stored at: /data/flu-test-submission/submission_files/GISAID/gisaid_upload_log_attempt_1.txt</span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="check-the-status-of-a-submission-1">3. Check the status of a submission<a class="anchor" aria-label="anchor" href="#check-the-status-of-a-submission-1"></a>
 </h4>
 <p>After a submission is submitted, you can routinely check the status
 of the submission.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff check_submission_status <span class="dt">\</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>--organism FLU <span class="dt">\</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>--submission_dir /data <span class="dt">\</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>--submission_name flu-test-submission <span class="dt">\</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>--test</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="ex">docker</span> exec <span class="at">-it</span> seqsender bash seqsender-kickoff check_submission_status <span class="dt">\</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>--organism FLU <span class="dt">\</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>--submission_dir /data <span class="dt">\</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>--submission_name flu-test-submission <span class="dt">\</span></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>--test</span></code></pre></div>
 <ul>
 <li>
 <strong><code>--organism</code></strong> specifies the type of data.
@@ -778,27 +778,27 @@ etc.) in order to make a submission. <br>
 submission, please remove this flag.</li>
 </ul>
 <p>Here is a quick look at the standard output:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Checking</span> submission status for:</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> name: flu-test-submission</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> organism: FLU</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> type: Test</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> database: GISAID</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> status: processed-ok</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> database: BIOSAMPLE</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="ex">Pulling</span> down report.xml</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> status: submitted</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> database: SRA</span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="ex">Pulling</span> down report.xml</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> status: submitted</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> database: GENBANK</span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="ex">Submission</span> status: <span class="at">---</span></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="ex">Total</span> runtime <span class="er">(</span><span class="ex">HRS:MIN:SECS</span><span class="kw">)</span><span class="bu">:</span> 0:00:08.213955</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="ex">Checking</span> submission status for:</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="ex">Submission</span> name: flu-test-submission</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="ex">Submission</span> organism: FLU</span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="ex">Submission</span> type: Test</span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="ex">Submission</span> database: GISAID</span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="ex">Submission</span> status: processed-ok</span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="ex">Submission</span> database: BIOSAMPLE</span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="ex">Pulling</span> down report.xml</span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a><span class="ex">Submission</span> status: submitted</span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a></span>
+<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a><span class="ex">Submission</span> database: SRA</span>
+<span id="cb21-15"><a href="#cb21-15" tabindex="-1"></a><span class="ex">Pulling</span> down report.xml</span>
+<span id="cb21-16"><a href="#cb21-16" tabindex="-1"></a><span class="ex">Submission</span> status: submitted</span>
+<span id="cb21-17"><a href="#cb21-17" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" tabindex="-1"></a><span class="ex">Submission</span> database: GENBANK</span>
+<span id="cb21-19"><a href="#cb21-19" tabindex="-1"></a><span class="ex">Submission</span> status: <span class="at">---</span></span>
+<span id="cb21-20"><a href="#cb21-20" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" tabindex="-1"></a><span class="ex">Total</span> runtime <span class="er">(</span><span class="ex">HRS:MIN:SECS</span><span class="kw">)</span><span class="bu">:</span> 0:00:08.213955</span></code></pre></div>
 <p>Here is a list of submission statuses and its meanings:</p>
 <blockquote>
 <ol style="list-style-type: decimal">

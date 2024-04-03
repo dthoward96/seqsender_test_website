@@ -65,7 +65,7 @@ def get_required_colnames(database, organism):
 		if len(database_list) > 0:
 			# Get all common fields across all databases in a portal
 			if "COMMON_FIELDS" in list(main_config["PORTAL_NAMES"][portal].keys()):
-				all_required_colnames += list(main_config["PORTAL_NAMES"][portal]["COMMON_FIELDS"].keys())	
+				all_required_colnames += list(main_config["PORTAL_NAMES"][portal]["COMMON_FIELDS"].keys())
 			# Get required fields for given organism
 			if organism in list(main_config["PORTAL_NAMES"][portal]["DATABASE"].keys()):
 				all_required_colnames += list(main_config["PORTAL_NAMES"][portal]["DATABASE"][organism].keys())
@@ -74,7 +74,7 @@ def get_required_colnames(database, organism):
 				if database_name in list(main_config["PORTAL_NAMES"][portal]["DATABASE"].keys()):
 					all_required_colnames += list(main_config["PORTAL_NAMES"][portal]["DATABASE"][database_name].keys())
 	# Extract the unique metadata fields
-	return set(all_required_colnames)		
+	return set(all_required_colnames)
 
 # Check the config file
 def get_config(config_file, database):
@@ -93,11 +93,12 @@ def get_config(config_file, database):
 			# Check if each database has portal information listed in the config file
 			for d in range(len(database)):
 				if submission_portals[d] not in config_dict.keys():
-					print("\n"+"Error: " +  database[d] + " is listed as one of the submitting databases in the command.", file=sys.stderr)
+					print("\n"+"Error: " +  database[d] + " is listed as one of the submitting databases.", file=sys.stderr)
 					print("Error: However, there is no " + submission_portals[d] + " submission information provided in the config file.", file=sys.stderr)
 					print("Error: Either remove " + database[d] + " from the submitting databases or update your config file."+"\n", file=sys.stderr)
 					sys.exit(1)
-	else:	
+			return config_dict
+	else:
 		print("Error: Config file is incorrect. File must has a valid yaml format.", file=sys.stderr)
 		sys.exit(1)
 
@@ -119,11 +120,23 @@ def get_metadata(database, organism, metadata_file):
 	required_date_colnames = list(filter(lambda x: ("&" in x)==True, db_required_colnames))
 	# Obtain the real required column names without the asterisks and & signs
 	required_colnames = [re.sub("[*?#&]", "", x) for x in db_required_colnames]
+	# Remove ISOLATE FROM REQUIRED COLNAMES FOR TEMP FIX
+	required_colnames = [x for x in required_colnames if "-isolate" not in x]
 	# Check if required column names are existed in metadata file
 	if not set(required_colnames).issubset(set(metadata.columns)):
 		failed_required_colnames = list(filter(lambda x: (x in metadata.columns)==False, required_colnames))
 		print("Error: Metadata file must have the following required column names: " + ", ".join(failed_required_colnames), file=sys.stderr)
 		sys.exit(1)
+	################# TEMPORARY FIX ###################
+	# Temporary fix to require either isolate or strain field not both
+	if "BIOSAMPLE" in database:
+		if "bs-isolate" not in metadata and "bs-strain" not in metadata:
+			print("Error: Metadata file must have one of these required columns: \"bs-isolate\" or \"bs-strain\".", file=sys.stderr)
+			sys.exit(1)
+	if "GENBANK" in database:
+		if "src-isolate" not in metadata and "src-strain" not in metadata:
+			print("Error: Metadata file must have one of these required columns: \"src-isolate\" or \"src-strain\".", file=sys.stderr)
+			sys.exit(1)
 	# Run some checks to make sure the required column fields are populated correctly
 	for name in required_colnames:
 		# Make sure specific fields have a correct date format
@@ -170,12 +183,12 @@ def read_gisaid_log(log_file, submission_status_file):
 				if "epi_isl".upper() in line.upper():
 					column_name = "gs-sample_name"
 					sample_name = list(set(filter(lambda x: (x.upper() in line.upper())==True, submission_status[column_name])))
-					accession_id = "epi_isl_id" 
+					accession_id = "epi_isl_id"
 					accession = re.search("EPI_ISL_[1-9]+", line)
 				elif "epi_id".upper() in line.upper():
 					column_name = "gs-sequence_name"
 					sample_name = list(set(filter(lambda x: (x.upper() in line.upper())==True, submission_status[column_name])))
-					accession_id = "epi_id" 
+					accession_id = "epi_id"
 					accession = re.search("EPI[1-9]+", line)
 				else:
 					continue
@@ -192,7 +205,7 @@ def read_gisaid_log(log_file, submission_status_file):
 	# Save submission status df
 	submission_status.to_csv(submission_status_file, header = True, index = False)
 	not_submitted = submission_status[~submission_status["gisaid_accession_epi_isl_id"].str.contains("EPI", na=False)].copy()
-	return not_submitted[["gs-sample_name", "gs-sequence_name"]]
+	return not_submitted[["gs-sample_name"]]
 
 # Check user credentials information
 def check_credentials(config_dict, database):
@@ -274,7 +287,7 @@ def process_fasta_samples(metadata, fasta_file):
 	# Check duplicates in fasta_df
 	duplicated_df = fasta_df[fasta_df.duplicated(subset = ["fasta_name_orig"], keep = False)]
 	if not duplicated_df.empty:
-		print("Error: Sequences in fasta file must be unique at: " + fasta_file + "\nDuplicate Sequences\n" + df["fasta_sequence_orig"].to_string(index=False), file=sys.stderr)
+		print("Error: Sequences in fasta file must be unique at: " + fasta_file + "\nDuplicate Sequences\n" + fasta_df["fasta_name_orig"].to_string(index=False), file=sys.stderr)
 		sys.exit(1)
 	# Validate duplicates don't appear on merge
 	try:
@@ -307,7 +320,7 @@ def update_submission_status(submission_dir, submission_name, organism, test):
 	if test == True:
 		submission_type = "Test"
 	else:
-		submission_type = "production"
+		submission_type = "Production"
 	# Check if given organism exist in the log
 	df_partial = df.loc[(df["Organism"] == organism) & (df["Submission_Name"] == submission_name) & (df["Submission_Directory"] == submission_dir) & (df["Submission_Type"] == submission_type)]
 	if df_partial.shape[0] == 0:
@@ -326,10 +339,10 @@ def update_submission_status(submission_dir, submission_name, organism, test):
 	for database_name in database:
 		print("\n" + "Submission database: " + database_name, file=sys.stdout)
 		df = pd.read_csv(submission_log_file, header = 0, dtype = str, engine = "python", encoding="utf-8", index_col=False).sort_values('Submission_Position', ascending=True)
-		df_processing = df[(df["Organism"] == organism) & (df["Database"] == database_name) & (df["Submission_Directory"] == submission_dir) & (df["Submission_Name"] == submission_name) & (df["Submission_Type"] == submission_type)]		
+		df_processing = df[(df["Organism"] == organism) & (df["Database"] == database_name) & (df["Submission_Directory"] == submission_dir) & (df["Submission_Name"] == submission_name) & (df["Submission_Type"] == submission_type)]
 		df_processing = df_processing.reset_index(drop=True)
-		submission_dir = df_processing["Submission_Directory"][0]		
-		submission_position = df_processing["Submission_Position"][0]	
+		submission_dir = df_processing["Submission_Directory"][0]
+		submission_position = df_processing["Submission_Position"][0]
 		submission_id, submission_status = df_processing["Submission_Status"][0].strip().split(";")
 		config_file = df_processing["Config_File"][0]
 		table2asn = df_processing["Table2asn"][0]
@@ -357,11 +370,11 @@ def update_submission_status(submission_dir, submission_name, organism, test):
 			print("There is no GISAID CLI package for " + organism + " located at "+ gisaid_cli, file=sys.stderr)
 			print("Please download the CLI package from GISAID platform", file=sys.stderr)
 			print("Then place a copy of the CLI binary at "+ gisaid_cli, file=sys.stderr)
-			sys.exit(1)	
+			sys.exit(1)
 		# Check the status of the submission
 		if "processed-ok" in submission_status:
 			print("Submission status: " + submission_status, file=sys.stdout)
-		else:		
+		else:
 			# Pull download submission report and update its status
 			if database_name in ["BIOSAMPLE", "SRA", "GENBANK"]:
 				# If report exists, processing the report and output status of the submission
@@ -383,8 +396,8 @@ def update_submission_status(submission_dir, submission_name, organism, test):
 							for db in other_submitting_db:
 								db_df = df.loc[df["Database"] == db]
 								db_df = db_df.reset_index(drop=True)
-								db_status = db_df["Submission_Status"][0]	
-								# If the status of biosample or sra is processed-ok, then go ahead and submit to Genbank 	
+								db_status = db_df["Submission_Status"][0]
+								# If the status of biosample or sra is processed-ok, then go ahead and submit to Genbank
 								if "processed-ok" in db_status:
 									all_status += [1]
 									report.update_genbank_files(database=database, organism=organism, submission_files_dir=submission_files_dir, submission_status_file=submission_status_file)
@@ -418,9 +431,8 @@ def update_submission_status(submission_dir, submission_name, organism, test):
 					if "processed-ok" in db_status:
 						report.update_gisaid_files(organism=organism, submission_files_dir=submission_files_dir, submission_status_file=submission_status_file)
 						submission_status = submit.submit_gisaid(organism=organism, database=database_name, submission_dir=submission_dir, submission_name=submission_name, config_dict=config_dict["GISAID"], gisaid_cli=gisaid_cli, submission_status_file=submission_status_file, submission_type=submission_type)
-						submission_id = ""	  
+						submission_id = ""
 			# Update status in the submission log
 			create.create_submission_log(database=database_name, submission_position=submission_position, organism=organism, submission_name=submission_name, submission_dir=submission_dir, config_file=config_file, submission_status=submission_status, submission_id=submission_id, table2asn=table2asn, gff_file=gff_file, submission_type=submission_type)
 			# Print out the submission status
 			print("Submission status: " + submission_status, file=sys.stdout)
-
